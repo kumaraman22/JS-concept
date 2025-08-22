@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <button id="clickMe">Click Me</button>
+    <script>
+        document.getElementById('clickMe').addEventListener('click', function(){
+            alert('Button Clicked');
+        })
+    </script>
+</body>
+</html>
+
+
+<!-- document.getElementById(): Accesses a single element by its ID.
+
+document.getElementsByClassName(): Retrieves a list of elements with a specific class name.
+
+document.getElementsByTagName(): Collects elements with a given tag name.
+
+document.querySelector(): Returns the first element that matches a specified CSS selector.
+
+document.querySelectorAll(): Returns a list of elements matching a CSS selector. -->
