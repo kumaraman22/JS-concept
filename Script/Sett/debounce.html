@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debouncing</title>
+</head>
+<body>
+
+    <script>
+        function debounce(func, wait){
+            let timeout;
+
+            return function executedFunction(...args){
+                const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            };
+        }
+
+        function fetchData(input) {
+        alert(`API call with input: ${input}`); // Placeholder for an API call
+    }
+    // Create a debounced version of fetchData
+    const debouncedFetchData = debounce(fetchData, 300);
+
+    function setup() {
+        document.getElementById('searchInput').addEventListener('input', (event) => {
+            debouncedFetchData(event.target.value);
+        });
+    }
+
+    // Ensure setup is called once the document is fully loaded
+    document.addEventListener('DOMContentLoaded', setup);
+
+    </script>
+
+    <h3>ferjj kjejr ijei</h3>
+    <input type="text" id="searchInput" placeholder="Start typing...">
+</body>
+</html>

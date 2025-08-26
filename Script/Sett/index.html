@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Throttled Scroll Event</title>
+<style>
+  /* Simple styling for demonstration */
+  body, html {
+    height: 200%; /* Make the page scrollable */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  #log {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 300px;
+  }
+</style>
+</head>
+<body>
+<div id="log">Scroll to see the effect...</div>
+<script>
+// Throttle function using setTimeout
+function throttle(func, limit) {
+  let lastFunc;
+  let lastRan;
+  return function() {
+    const context = this;
+    const args = arguments;
+    if (!lastRan) {
+      func.apply(context, args);
+      lastRan = Date.now();
+    } else {
+      clearTimeout(lastFunc);
+      lastFunc = setTimeout(function() {
+        if ((Date.now() - lastRan) >= limit) {
+          func.apply(context, args);
+          lastRan = Date.now();
+        }
+      }, limit - (Date.now() - lastRan));
+    }
+  }
+}
+
+// Function to be throttled
+function handleScroll() {
+  const log = document.getElementById('log');
+  log.textContent = `Scroll event triggered at: ${new Date().toLocaleTimeString()}`;
+}
+
+// Add event listener for scroll
+window.addEventListener('scroll', throttle(handleScroll, 1000));
+</script>
+</body>
+</html>
